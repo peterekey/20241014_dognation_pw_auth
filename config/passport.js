@@ -7,7 +7,7 @@ const helper = require("../helpers/helper");
 passport.use(new LocalStrategy(
     function(username, password, done) {
       helper.findByUsername(username, (err, user) => {
-        
+        if(err) return done(err);
       })
     }
   ));
