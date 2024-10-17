@@ -15,6 +15,18 @@ app.set("view engine", "ejs");
 require("./config/passport");
 
 // Session Config
+app.use(
+  session({
+    secret: "34otuhfddkjfng",
+    cookie: { 
+      maxAge: 1000 * 60 * 60 * 24,
+      secure: true,
+      sameSite: "none"
+    },
+    saveUninitialized: false,
+    resave: false
+  })
+);
 
 // Passport Config
 
