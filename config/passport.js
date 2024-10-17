@@ -16,5 +16,8 @@ passport.use(new LocalStrategy(
   ));
 
 // Serialize a user
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+})
 
 // Deserialize a user
