@@ -11,7 +11,7 @@ passport.use(new LocalStrategy(
             if (!user) return done(null, false);
             
             const matchedPassword = await bcrypt.compare(password, user.password);
-            if(user.password != password) return done(null, false);
+            if(!matchedPassword) return done(null, false);
             
             return done(null, user);
         } catch (err) {
