@@ -24,5 +24,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
     helper.findById(user.id, (err, user) => {
        if (err) return done(err); 
+       done(null, user);
     });
 })

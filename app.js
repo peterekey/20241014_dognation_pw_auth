@@ -29,6 +29,8 @@ app.use(
 );
 
 // Passport Config
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use(require("./routes/index.routes"));
