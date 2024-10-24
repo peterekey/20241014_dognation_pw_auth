@@ -6,12 +6,17 @@ const helper = require("../helpers/helper");
 // Set up the Passport strategy:
 passport.use(new LocalStrategy(
     async function(username, password, done) {
-        const user = await helper.findByUsername(username, (err, user) => {
-            if(err) return done(err);
-            if(!user) return done(null, false);
+        try {
+            const user = await helper.findByUsername(username);
+            if (!user) return done(null, false);
+            
+            const matchedPassword = await bcrypt.compare(password, user.password);
             if(user.password != password) return done(null, false);
+            
             return done(null, user);
-        })
+        } catch (err) {
+            return done(err);
+        }
     }
   ));
 
