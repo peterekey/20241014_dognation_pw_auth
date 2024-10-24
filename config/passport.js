@@ -5,13 +5,13 @@ const helper = require("../helpers/helper");
 
 // Set up the Passport strategy:
 passport.use(new LocalStrategy(
-    function(username, password, done) {
-      helper.findByUsername(username, (err, user) => {
-        if(err) return done(err);
-        if(!user) return done(null, false);
-        if(user.password != password) return done(null, false);
-        return done(null, user);
-      })
+    async function(username, password, done) {
+        const user = await helper.findByUsername(username, (err, user) => {
+            if(err) return done(err);
+            if(!user) return done(null, false);
+            if(user.password != password) return done(null, false);
+            return done(null, user);
+        })
     }
   ));
 
