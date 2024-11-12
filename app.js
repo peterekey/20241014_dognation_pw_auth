@@ -20,8 +20,8 @@ app.use(
     secret: "34otuhfddkjfng",
     cookie: { 
       maxAge: 1000 * 60 * 60 * 24,
-      secure: true,
-      sameSite: "none"
+      secure: false, //remove secure: true for development
+      sameSite: "lax"
     },
     saveUninitialized: false,
     resave: false
@@ -36,8 +36,9 @@ app.use(passport.session());
 app.use(require("./routes/index.routes"));
 
 app.get("/", (req, res) => {
-  const user = null || "Guest";
-  res.render("home", { user });
+  const user = req.user ? req.user.username : "Guest";
+  console.log(`User is ${user}`);
+  res.render("home", { user: req.user || {} });
 });
 
 
